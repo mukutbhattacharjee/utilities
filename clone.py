@@ -15,7 +15,7 @@ def main():
     if(len(sys.argv) < 4):
         print("Error: Please provide suitable arguments in the form 'python clone.py <gitlab home url> <private token> <group_name>'." 
         + " All arguments are mandatory. In case of an invalid"
-        + " access token, only public repos under the group will be cloned")
+        + " access token, only public repos under the group will be cloned.")
         quit()
 
     gitlab_home = sys.argv[1]
