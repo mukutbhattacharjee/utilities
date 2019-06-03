@@ -28,7 +28,7 @@ print("Found "+str(total)+" repos.")
 
 projects = json.loads(response.content)
 
-print('Cloning all repositories under group {} visible to the current user'.format(group_name));
+print('Cloning all repositories under group {} visible to the current user'.format(group));
 
 for project in projects:
     
