@@ -13,7 +13,9 @@ def clone (project, api_token):
 
 def main():
     if(len(sys.argv) < 4):
-        print("Please provide suitable arguments in the form 'python clone.py <gitlab home url> <private token> <group_name>'. All arguments are mandatory")
+        print("Error: Please provide suitable arguments in the form 'python clone.py <gitlab home url> <private token> <group_name>'." 
+        + " All arguments are mandatory. In case of an invalid"
+        + " access token, only public repos under the group will be cloned")
         quit()
 
     gitlab_home = sys.argv[1]
@@ -21,7 +23,12 @@ def main():
     group = sys.argv[3]
 
     url = '{}/api/v4/groups/{}/projects?per_page=100'.format(gitlab_home,group)
-    response = requests.get(url, headers={'PRIVATE-TOKEN':api_token})
+    try:
+        response = requests.get(url, headers={'PRIVATE-TOKEN':api_token})
+    except requests.exceptions.RequestException:
+        print("Error: Please check your URL or the Access Token")
+        quit()
+
     total = len(response.json())
     print("Found "+str(total)+" repos.")
     projects = json.loads(response.content)
